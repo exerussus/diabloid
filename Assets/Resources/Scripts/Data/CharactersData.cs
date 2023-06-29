@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 
 namespace Source.ECS.Entities
 {
-    [CreateAssetMenu(menuName = "Entities/CharactersData", fileName = "CharactersData")]
+    [CreateAssetMenu(menuName = "Data/Characters", fileName = "Characters")]
     public class CharactersData : ScriptableObject
     {
         [SerializeField] private CharacterData[] _charactersData;

@@ -1,24 +1,15 @@
-﻿using System;
+﻿
 using UnityEngine;
 
 namespace Source.ECS.Entities
 {
-    [Serializable]
-    public class CharacterData
+    [CreateAssetMenu(menuName = "Data/Character", fileName = "Character")]
+    public class CharacterData : ScriptableObject
     {
-        [SerializeField] private CharacterType _сharacterType;
-        public CharacterType CharacterType => _сharacterType;
-        
         [SerializeField] private GameObject _сharacterPrefab;
         public GameObject CharacterPrefab => _сharacterPrefab;
 
         [SerializeField] private float _movementSpeed;
         public float MovementSpeed => _movementSpeed;
-    }
-
-    public enum CharacterType
-    {
-        Player,
-        Enemy
     }
 }

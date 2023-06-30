@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Source.ECS.Components
 {
-    public struct Follow
+    public struct FollowComponent
     {
         private Transform _targetTransform;
     }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Source.ECS.Systems
 {
-    public class PlayerInit : IEcsInitSystem
+    public class PlayerInitSystem : IEcsInitSystem
     {
         
         public void Init(IEcsSystems systems)
@@ -16,8 +16,8 @@ namespace Source.ECS.Systems
             
             var player = world.NewEntity();
             
-            var movable = world.GetPool<Movable>();
-            var inputEvent = world.GetPool<InputEvent>();
+            var movable = world.GetPool<MoveComponent>();
+            var inputEvent = world.GetPool<Components.PlayerInputComponent>();
             
             ref var movablePlayer = ref movable.Add(player);
             ref var inputEventPlayer = ref inputEvent.Add(player);

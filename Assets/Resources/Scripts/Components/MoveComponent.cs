@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Source.ECS.Components
 {
-    public struct Movable
+    public struct MoveComponent
     {
         public Transform Transform;
 

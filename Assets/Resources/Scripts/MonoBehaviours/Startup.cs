@@ -10,25 +10,34 @@ namespace Resources.Scripts.MonoBehaviours
     {
         EcsWorld _world;
         IEcsSystems _initSystems;
+        IEcsSystems _updateSystems;
         [SerializeField] private CharacterData _playerData;
         [SerializeField] private CharactersData _charactersData;
         
         private void Start() 
         {        
-            _world = new EcsWorld ();
+            _world = new EcsWorld();
             var gameData = GetGameData();
             
-            _initSystems = new EcsSystems (_world, gameData);
+            _initSystems = new EcsSystems(_world, gameData);
             _initSystems
                     
-                .Add(new PlayerInit());
+                .Add(new PlayerInitSystem());
 
-            _initSystems.Init ();
+            _initSystems.Init();
+            
+            _updateSystems = new EcsSystems(_world, gameData);
+            _updateSystems
+                    
+                .Add(new PlayerInputSystem())
+                .Add(new MoveSystem());
+            
+            _updateSystems.Init();
         }
 
         private void Update() 
         {
-            // _systems?.Run();
+            _updateSystems?.Run();
         }
 
         private GameData GetGameData()

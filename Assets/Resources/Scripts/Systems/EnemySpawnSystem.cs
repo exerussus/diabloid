@@ -24,7 +24,7 @@ namespace Resources.Scripts.Systems
         {
             _world = systems.GetWorld();
             _gameData = systems.GetShared<GameData>();
-            _enemiesData = _gameData._enemiesData.Enemies;
+            _enemiesData = _gameData.EnemiesData.Enemies;
             _movePool = _world.GetPool<MoveComponent>();
             _followPool = _world.GetPool<FollowComponent>();
             SelectEnemiesWithCurrentLvl();

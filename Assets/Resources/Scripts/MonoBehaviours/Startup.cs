@@ -1,4 +1,5 @@
 ﻿
+using Cinemachine;
 using Leopotam.EcsLite;
 using Resources.Scripts.Data;
 using Resources.Scripts.Systems;
@@ -16,6 +17,7 @@ namespace Resources.Scripts.MonoBehaviours
         private GameData _gameData;
         [SerializeField] private PlayerData _playerData;
         [SerializeField] private EnemiesData enemiesData;
+        [SerializeField] private CinemachineVirtualCamera _cinemachineVirtualCamera;
         
         private void Start() 
         {        
@@ -72,8 +74,9 @@ namespace Resources.Scripts.MonoBehaviours
         private GameData GetGameData()
         {
             var gameData = new GameData();
-            gameData._enemiesData = enemiesData;
+            gameData.EnemiesData = enemiesData;
             gameData.PlayerData = _playerData;
+            gameData.CinemachineVirtualCamera = _cinemachineVirtualCamera;
             return gameData;
         }
         

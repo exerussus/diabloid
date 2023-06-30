@@ -3,6 +3,7 @@ using Leopotam.EcsLite;
 using Resources.Scripts.Data;
 using Resources.Scripts.Systems;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Resources.Scripts.MonoBehaviours
 {
@@ -14,7 +15,7 @@ namespace Resources.Scripts.MonoBehaviours
         private IEcsSystems _fixedUpdateSystems;
         private GameData _gameData;
         [SerializeField] private CharacterData _playerData;
-        [SerializeField] private CharactersData _charactersData;
+        [FormerlySerializedAs("_charactersData")] [SerializeField] private EnemiesData enemiesData;
         
         private void Start() 
         {        
@@ -69,7 +70,7 @@ namespace Resources.Scripts.MonoBehaviours
         private GameData GetGameData()
         {
             var gameData = new GameData();
-            gameData.CharactersData = _charactersData;
+            gameData._enemiesData = enemiesData;
             gameData.PlayerData = _playerData;
             return gameData;
         }

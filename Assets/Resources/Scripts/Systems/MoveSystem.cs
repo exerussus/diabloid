@@ -11,11 +11,6 @@ namespace Resources.Scripts.Systems
         private EcsPool<MoveComponent> _movePool;
         private EcsPool<PlayerInputComponent> _playerInputPool;
 
-        protected override EcsWorld GetEcsWorld(IEcsSystems systems)
-        {
-            return systems.GetWorld();
-        }
-
         protected override EcsFilter GetEcsFilter(IEcsSystems systems)
         {
             return _world.Filter<MoveComponent>().Inc<PlayerInputComponent>().End();
@@ -29,7 +24,7 @@ namespace Resources.Scripts.Systems
 
         protected override void BeforeForeach(IEcsSystems systems) {}
 
-        protected override void Foreach(IEcsSystems systems, int entity)
+        protected override void InForeach(IEcsSystems systems, int entity)
         {
             ref var moveComponent = ref _movePool.Get(entity);
             ref var playerInputComponent = ref _playerInputPool.Get(entity);

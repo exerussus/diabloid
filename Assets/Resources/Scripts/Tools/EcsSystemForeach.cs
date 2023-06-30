@@ -10,7 +10,7 @@ namespace Resources.Scripts.Tools
 
         public void Init(IEcsSystems systems)
         {
-            _world = GetEcsWorld(systems);
+            _world = systems.GetWorld();
             _filter = GetEcsFilter(systems);
             Initialization(systems);
         }
@@ -20,15 +20,14 @@ namespace Resources.Scripts.Tools
             BeforeForeach(systems);
             foreach (var entity in _filter)
             {
-                Foreach(systems, entity);
+                InForeach(systems, entity);
             }
         }
-
-        protected abstract EcsWorld GetEcsWorld(IEcsSystems systems);
+        
         protected abstract EcsFilter GetEcsFilter(IEcsSystems systems);
         protected abstract void Initialization(IEcsSystems systems);
         protected abstract void BeforeForeach(IEcsSystems systems);
-        protected abstract void Foreach(IEcsSystems systems, int entity);
+        protected abstract void InForeach(IEcsSystems systems, int entity);
         
     }
 }

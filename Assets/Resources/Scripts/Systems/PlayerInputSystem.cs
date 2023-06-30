@@ -12,11 +12,6 @@ namespace Resources.Scripts.Systems
         private float _horizontalAxis;
         private float _verticalAxis;
 
-        protected override EcsWorld GetEcsWorld(IEcsSystems systems)
-        {
-            return systems.GetWorld();
-        }
-
         protected override EcsFilter GetEcsFilter(IEcsSystems systems)
         {
             return _world.Filter<PlayerInputComponent>().End();
@@ -33,7 +28,7 @@ namespace Resources.Scripts.Systems
             _verticalAxis = Input.GetAxis("Vertical");
         }
 
-        protected override void Foreach(IEcsSystems systems, int entity)
+        protected override void InForeach(IEcsSystems systems, int entity)
         {
             ref var playerInputComponent = ref _playerInputPool.Get(entity);
             playerInputComponent.Direction = new Vector2(_horizontalAxis, _verticalAxis);

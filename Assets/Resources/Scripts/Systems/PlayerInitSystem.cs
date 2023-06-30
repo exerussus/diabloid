@@ -14,6 +14,7 @@ namespace Resources.Scripts.Systems
             var gameData = systems.GetShared<GameData>();
             var player = world.NewEntity();
             var playerData = gameData.PlayerData;
+            playerData.Entity = player;
             
             var movePool = world.GetPool<MoveComponent>();
             var inputEventPool = world.GetPool<PlayerInputComponent>();

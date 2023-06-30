@@ -1,6 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using Leopotam.EcsLite;
+using Resources.Scripts.Components;
 using Resources.Scripts.Data;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ namespace Resources.Scripts.Systems
         private GameData _gameData;
         private CharacterData[] _enemiesData;
         private List<CharacterData> _selectedEnemies;
+        private EcsPool<MoveComponent> _movePool;
+        private EcsPool<FollowComponent> _followPool;
         private int _bottomLvlDifference = 2;
         private int _upperLvlDifference = 1;
         private float _spawnTime = 5f;
@@ -22,6 +25,8 @@ namespace Resources.Scripts.Systems
             _world = systems.GetWorld();
             _gameData = systems.GetShared<GameData>();
             _enemiesData = _gameData._enemiesData.Enemies;
+            _movePool = _world.GetPool<MoveComponent>();
+            _followPool = _world.GetPool<FollowComponent>();
             SelectEnemiesWithCurrentLvl();
         }
 
@@ -32,12 +37,31 @@ namespace Resources.Scripts.Systems
         
         private void Spawn(CharacterData enemyData)
         {
-            // GameObject.Instantiate();
+            if (_enemiesData.Length == 0) return;
+            var newEnemy = _world.NewEntity();
+            ref var moveComponent = ref _movePool.Add(newEnemy);
+            ref var followComponent = ref _followPool.Add(newEnemy);
+            
+            CreateEnemy(ref moveComponent, ref followComponent, enemyData);
+        }
+
+        private void CreateEnemy(
+                                 ref MoveComponent moveComponentEnemy, 
+                                 ref FollowComponent followComponentEnemy, 
+                                 CharacterData enemyData
+                                 )
+        {
+            var spawnedEnemyPrefab = GameObject.Instantiate(enemyData.CharacterPrefab);
+            moveComponentEnemy.MovementSpeed = enemyData.MovementSpeed;
+            moveComponentEnemy.Transform = spawnedEnemyPrefab.transform;
+            ref var moveComponentPlayer = ref _movePool.Get(_gameData.PlayerData.Entity);
+            followComponentEnemy.TargetTransform = moveComponentPlayer.Transform;
         }
         
         private void SelectEnemiesWithCurrentLvl()
         {
-            _selectedEnemies.Clear();
+            if (_enemiesData.Length == 0) return;
+            _selectedEnemies = new List<CharacterData>();
             
             foreach (var enemy in _enemiesData)
             {

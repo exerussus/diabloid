@@ -14,7 +14,7 @@ namespace Resources.Scripts.MonoBehaviours
         private IEcsSystems _updateSystems;
         private IEcsSystems _fixedUpdateSystems;
         private GameData _gameData;
-        [SerializeField] private CharacterData _playerData;
+        [SerializeField] private PlayerData _playerData;
         [FormerlySerializedAs("_charactersData")] [SerializeField] private EnemiesData enemiesData;
         
         private void Start() 
@@ -62,7 +62,9 @@ namespace Resources.Scripts.MonoBehaviours
             _fixedUpdateSystems = new EcsSystems(_world, _gameData);
             _fixedUpdateSystems
                     
-                .Add(new MoveSystem());
+                .Add(new MoveSystem())
+                .Add(new EnemySpawnSystem())
+                .Add(new FollowSystem());
             
             _fixedUpdateSystems.Init();
         }

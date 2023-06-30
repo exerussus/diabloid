@@ -9,7 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efe39c0bb65446c786935f757b5e4d8f, type: 3}
-  m_Name: CharactersData
+  m_Script: {fileID: 11500000, guid: 8e5b3140d1974aafb5eb92450622e28b, type: 3}
+  m_Name: Player
   m_EditorClassIdentifier: 
-  _charactersData: []
+  "_\u0441haracterPrefab": {fileID: 0}
+  _level: 0
+  _movementSpeed: 0
+  Entity: 0

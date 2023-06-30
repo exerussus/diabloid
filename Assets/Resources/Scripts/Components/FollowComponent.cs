@@ -5,6 +5,6 @@ namespace Resources.Scripts.Components
 {
     public struct FollowComponent
     {
-        private Transform _targetTransform;
+        public Transform TargetTransform;
     }
 }

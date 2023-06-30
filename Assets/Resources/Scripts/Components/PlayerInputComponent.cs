@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace Source.ECS.Components
+namespace Resources.Scripts.Components
 {
     public struct PlayerInputComponent
     {

@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 
-namespace Source.ECS.Entities
+namespace Resources.Scripts.Data
 {
     [CreateAssetMenu(menuName = "Data/Characters", fileName = "Characters")]
     public class CharactersData : ScriptableObject

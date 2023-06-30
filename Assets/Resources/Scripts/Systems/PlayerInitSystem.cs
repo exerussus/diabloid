@@ -1,10 +1,10 @@
 ﻿
 using Leopotam.EcsLite;
-using Source.ECS.Components;
-using Source.ECS.Entities;
+using Resources.Scripts.Components;
+using Resources.Scripts.Data;
 using UnityEngine;
 
-namespace Source.ECS.Systems
+namespace Resources.Scripts.Systems
 {
     public class PlayerInitSystem : IEcsInitSystem
     {

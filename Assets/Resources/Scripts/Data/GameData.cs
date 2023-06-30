@@ -1,4 +1,5 @@
-﻿namespace Source.ECS.Entities
+﻿
+namespace Resources.Scripts.Data
 {
     public class GameData
     {

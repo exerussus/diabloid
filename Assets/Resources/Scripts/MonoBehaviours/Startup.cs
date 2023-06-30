@@ -1,8 +1,7 @@
 ﻿
-using System;
 using Leopotam.EcsLite;
-using Source.ECS.Entities;
-using Source.ECS.Systems;
+using Resources.Scripts.Data;
+using Resources.Scripts.Systems;
 using UnityEngine;
 
 namespace Resources.Scripts.MonoBehaviours

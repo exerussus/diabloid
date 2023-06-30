@@ -1,8 +1,9 @@
-﻿using Leopotam.EcsLite;
-using Source.ECS.Components;
+﻿
+using Leopotam.EcsLite;
+using Resources.Scripts.Components;
 using UnityEngine;
 
-namespace Source.ECS.Systems
+namespace Resources.Scripts.Systems
 {
     public class MoveSystem : IEcsRunSystem, IEcsInitSystem
     {

@@ -1,35 +1,41 @@
 ﻿
 using Leopotam.EcsLite;
 using Resources.Scripts.Components;
+using Resources.Scripts.Tools;
 using UnityEngine;
 
 namespace Resources.Scripts.Systems
 {
-    public class MoveSystem : IEcsRunSystem, IEcsInitSystem
+    public class MoveSystem : EcsSystemForeach
     {
-        private EcsWorld _world;
-        private EcsFilter _filter;
         private EcsPool<MoveComponent> _movePool;
         private EcsPool<PlayerInputComponent> _playerInputPool;
 
-        public void Init(IEcsSystems systems)
+        protected override EcsWorld GetEcsWorld(IEcsSystems systems)
         {
-            _world = systems.GetWorld();
-            _filter = _world.Filter<MoveComponent>().Inc<PlayerInputComponent>().End();
+            return systems.GetWorld();
+        }
+
+        protected override EcsFilter GetEcsFilter(IEcsSystems systems)
+        {
+            return _world.Filter<MoveComponent>().Inc<PlayerInputComponent>().End();
+        }
+
+        protected override void Initialization(IEcsSystems systems)
+        {
             _movePool = _world.GetPool<MoveComponent>();
             _playerInputPool = _world.GetPool<PlayerInputComponent>();
         }
-        
-        public void Run(IEcsSystems systems)
-        {
-            foreach (var entity in _filter)
-            {
-                ref var moveComponent = ref _movePool.Get(entity);
-                ref var playerInputComponent = ref _playerInputPool.Get(entity);
 
-                moveComponent.Transform.position += (Vector3)playerInputComponent.Direction 
-                                                    * (Time.deltaTime * moveComponent.MovementSpeed);
-            }
+        protected override void BeforeForeach(IEcsSystems systems) {}
+
+        protected override void Foreach(IEcsSystems systems, int entity)
+        {
+            ref var moveComponent = ref _movePool.Get(entity);
+            ref var playerInputComponent = ref _playerInputPool.Get(entity);
+
+            moveComponent.Transform.position += (Vector3)playerInputComponent.Direction 
+                                                * (Time.deltaTime * moveComponent.MovementSpeed);
         }
     }
 }

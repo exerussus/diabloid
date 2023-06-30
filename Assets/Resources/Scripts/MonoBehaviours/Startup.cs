@@ -43,7 +43,7 @@ namespace Resources.Scripts.MonoBehaviours
         {
             _initSystems = new EcsSystems(_world, _gameData);
             _initSystems
-                    
+                .Add(new WorldInitSystem())    
                 .Add(new PlayerInitSystem());
             
             _initSystems.Init();

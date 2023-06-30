@@ -4,7 +4,6 @@ using Leopotam.EcsLite;
 using Resources.Scripts.Data;
 using Resources.Scripts.Systems;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Resources.Scripts.MonoBehaviours
 {
@@ -18,6 +17,7 @@ namespace Resources.Scripts.MonoBehaviours
         [SerializeField] private PlayerData _playerData;
         [SerializeField] private EnemiesData enemiesData;
         [SerializeField] private CinemachineVirtualCamera _cinemachineVirtualCamera;
+        [SerializeField] private WorldData _worldData;
         
         private void Start() 
         {        
@@ -77,6 +77,7 @@ namespace Resources.Scripts.MonoBehaviours
             gameData.EnemiesData = enemiesData;
             gameData.PlayerData = _playerData;
             gameData.CinemachineVirtualCamera = _cinemachineVirtualCamera;
+            gameData.WorldData = _worldData;
             return gameData;
         }
         

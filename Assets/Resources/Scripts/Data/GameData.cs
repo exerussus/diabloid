@@ -8,5 +8,6 @@ namespace Resources.Scripts.Data
         public PlayerData PlayerData;
         public EnemiesData EnemiesData;
         public CinemachineVirtualCamera CinemachineVirtualCamera;
+        public WorldData WorldData;
     }
 }

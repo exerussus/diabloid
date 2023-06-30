@@ -4,23 +4,31 @@ using UnityEngine;
 
 namespace Source.ECS.Systems
 {
-    public class MoveSystem : IEcsRunSystem
+    public class MoveSystem : IEcsRunSystem, IEcsInitSystem
     {
+        private EcsWorld _world;
+        private EcsFilter _filter;
+        private EcsPool<MoveComponent> _movePool;
+        private EcsPool<PlayerInputComponent> _playerInputPool;
+
+        public void Init(IEcsSystems systems)
+        {
+            _world = systems.GetWorld();
+            _filter = _world.Filter<MoveComponent>().Inc<PlayerInputComponent>().End();
+            _movePool = _world.GetPool<MoveComponent>();
+            _playerInputPool = _world.GetPool<PlayerInputComponent>();
+        }
+        
         public void Run(IEcsSystems systems)
         {
-            var world = systems.GetWorld();
-            var filter = world.Filter<MoveComponent>().Inc<PlayerInputComponent>().End();
-            var movePool = world.GetPool<MoveComponent>();
-            var playerInputPool = world.GetPool<PlayerInputComponent>();
-
-            foreach (var entity in filter)
+            foreach (var entity in _filter)
             {
-                ref var moveComponent = ref movePool.Get(entity);
-                ref var playerInputComponent = ref playerInputPool.Get(entity);
+                ref var moveComponent = ref _movePool.Get(entity);
+                ref var playerInputComponent = ref _playerInputPool.Get(entity);
 
-                moveComponent.Transform.position += (Vector3)playerInputComponent.Direction * (Time.deltaTime * moveComponent.MovementSpeed);
+                moveComponent.Transform.position += (Vector3)playerInputComponent.Direction 
+                                                    * (Time.deltaTime * moveComponent.MovementSpeed);
             }
-            
         }
     }
 }

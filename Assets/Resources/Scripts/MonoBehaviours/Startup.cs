@@ -15,7 +15,7 @@ namespace Resources.Scripts.MonoBehaviours
         private IEcsSystems _fixedUpdateSystems;
         private GameData _gameData;
         [SerializeField] private PlayerData _playerData;
-        [FormerlySerializedAs("_charactersData")] [SerializeField] private EnemiesData enemiesData;
+        [SerializeField] private EnemiesData enemiesData;
         
         private void Start() 
         {        

@@ -152,8 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16d12583dc0d40099b83fa837239b48f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerData: {fileID: 11400000, guid: 106a06b4f10d8e4439c8f58d9c870f29, type: 2}
-  _charactersData: {fileID: 11400000, guid: 571d06edd983609498fffdee1698ce14, type: 2}
+  _playerData: {fileID: 11400000, guid: a237373df272a274c97151cccb238fd1, type: 2}
+  enemiesData: {fileID: 11400000, guid: 571d06edd983609498fffdee1698ce14, type: 2}
 --- !u!4 &93186527
 Transform:
   m_ObjectHideFlags: 0

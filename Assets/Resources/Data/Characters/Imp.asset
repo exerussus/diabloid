@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80dd9d4a79fe47fd8f0569655825f749, type: 3}
   m_Name: Imp
   m_EditorClassIdentifier: 
-  "_\u0441haracterPrefab": {fileID: 6344912167268278246, guid: 63925ed7971048048ba76d359ff250fb, type: 3}
+  "_\u0441haracterPrefab": {fileID: 1751068865394308588, guid: 8245023b6a9d3604dbca9a5f12657f73, type: 3}
   _level: 1
   _movementSpeed: 2

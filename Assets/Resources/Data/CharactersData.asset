@@ -12,7 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efe39c0bb65446c786935f757b5e4d8f, type: 3}
   m_Name: CharactersData
   m_EditorClassIdentifier: 
-  _charactersData:
-  - "_\u0441haracterType": 0
-    "_\u0441haracterPrefab": {fileID: 6344912167268278246, guid: 63925ed7971048048ba76d359ff250fb, type: 3}
-    _movementSpeed: 2
+  _charactersData: []

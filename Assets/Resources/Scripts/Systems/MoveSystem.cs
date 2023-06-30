@@ -28,7 +28,7 @@ namespace Resources.Scripts.Systems
         {
             ref var moveComponent = ref _movePool.Get(entity);
             ref var playerInputComponent = ref _playerInputPool.Get(entity);
-
+            var Direction = playerInputComponent.Direction;
             moveComponent.Transform.position += (Vector3)playerInputComponent.Direction 
                                                 * (Time.deltaTime * moveComponent.MovementSpeed);
         }

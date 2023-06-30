@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   "_\u0441haracterPrefab": {fileID: 6344912167268278246, guid: 63925ed7971048048ba76d359ff250fb, type: 3}
   _level: 1
-  _movementSpeed: 11
+  _movementSpeed: 3
   Entity: 0

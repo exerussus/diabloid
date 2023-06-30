@@ -31,7 +31,7 @@ namespace Resources.Scripts.Systems
         protected override void InForeach(IEcsSystems systems, int entity)
         {
             ref var playerInputComponent = ref _playerInputPool.Get(entity);
-            playerInputComponent.Direction = new Vector2(_horizontalAxis, _verticalAxis);
+            playerInputComponent.Direction = new Vector3(_horizontalAxis, 0, _verticalAxis).normalized;
         }
     }
 }

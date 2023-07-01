@@ -11,7 +11,7 @@ namespace Resources.Scripts.Systems
         public void Init(IEcsSystems systems)
         {
             _gameData = systems.GetShared<GameData>();
-            GameObject.Instantiate(_gameData.WorldData.WorldPrefab);
+            GameObject.Instantiate(_gameData.WorldsData[_gameData.CurrentWorld].WorldPrefab);
         }
     }
 }

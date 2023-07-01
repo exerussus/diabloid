@@ -155,7 +155,8 @@ MonoBehaviour:
   _playerData: {fileID: 11400000, guid: a237373df272a274c97151cccb238fd1, type: 2}
   enemiesData: {fileID: 11400000, guid: 571d06edd983609498fffdee1698ce14, type: 2}
   _cinemachineVirtualCamera: {fileID: 507347460}
-  _worldData: {fileID: 11400000, guid: f891afdeec90e1149a45a75f0b0e4ea9, type: 2}
+  _worldsData:
+  - {fileID: 11400000, guid: f891afdeec90e1149a45a75f0b0e4ea9, type: 2}
 --- !u!4 &93186527
 Transform:
   m_ObjectHideFlags: 0

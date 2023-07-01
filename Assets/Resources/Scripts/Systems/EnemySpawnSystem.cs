@@ -29,7 +29,12 @@ namespace Resources.Scripts.Systems
             _followPool = _world.GetPool<FollowComponent>();
             SelectEnemiesWithCurrentLvl();
         }
-
+        
+        public void Run(IEcsSystems systems)
+        {
+            if (IsItTime()) Spawn(GetRandomEnemy());
+        }
+        
         private CharacterData GetRandomEnemy()
         {
             return _selectedEnemies[Random.Range(0, _selectedEnemies.Count)];
@@ -51,9 +56,11 @@ namespace Resources.Scripts.Systems
                                  CharacterData enemyData
                                  )
         {
-            var spawnedEnemyPrefab = GameObject.Instantiate(enemyData.CharacterPrefab);
+            var spawnedEnemy = GameObject.Instantiate(enemyData.CharacterPrefab);
+            var rigidbody = spawnedEnemy.AddComponent<Rigidbody>();
             moveComponentEnemy.MovementSpeed = enemyData.MovementSpeed;
-            moveComponentEnemy.Transform = spawnedEnemyPrefab.transform;
+            moveComponentEnemy.Transform = spawnedEnemy.transform;
+            moveComponentEnemy.Rigidbody = rigidbody;
             ref var moveComponentPlayer = ref _movePool.Get(_gameData.PlayerData.Entity);
             followComponentEnemy.TargetTransform = moveComponentPlayer.Transform;
         }
@@ -97,10 +104,6 @@ namespace Resources.Scripts.Systems
         {
             return _gameData.PlayerData.Level >= characterData.Level - _upperLvlDifference;
         }
-        
-        public void Run(IEcsSystems systems)
-        {
-            if (IsItTime()) Spawn(GetRandomEnemy());
-        }
+
     }
 }

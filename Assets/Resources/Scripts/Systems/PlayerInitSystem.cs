@@ -17,6 +17,7 @@ namespace Resources.Scripts.Systems
             _world = systems.GetWorld();
             _gameData = systems.GetShared<GameData>();
             _playerData = _gameData.PlayerData;
+            
             var player = _world.NewEntity();
             _playerData.Entity = player;
             

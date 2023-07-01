@@ -17,7 +17,7 @@ namespace Resources.Scripts.MonoBehaviours
         [SerializeField] private PlayerData _playerData;
         [SerializeField] private EnemiesData enemiesData;
         [SerializeField] private CinemachineVirtualCamera _cinemachineVirtualCamera;
-        [SerializeField] private WorldData _worldData;
+        [SerializeField] private WorldData[] _worldsData;
         
         private void Start() 
         {        
@@ -77,7 +77,7 @@ namespace Resources.Scripts.MonoBehaviours
             gameData.EnemiesData = enemiesData;
             gameData.PlayerData = _playerData;
             gameData.CinemachineVirtualCamera = _cinemachineVirtualCamera;
-            gameData.WorldData = _worldData;
+            gameData.WorldsData = _worldsData;
             return gameData;
         }
         

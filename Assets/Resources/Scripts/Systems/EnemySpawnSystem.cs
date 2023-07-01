@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Leopotam.EcsLite;
 using Resources.Scripts.Components;
 using Resources.Scripts.Data;
+using Resources.Scripts.Logic;
 using UnityEngine;
 
 namespace Resources.Scripts.Systems
@@ -15,6 +16,8 @@ namespace Resources.Scripts.Systems
         private List<CharacterData> _selectedEnemies;
         private EcsPool<MoveComponent> _movePool;
         private EcsPool<FollowComponent> _followPool;
+        private EcsPool<ClassComponent> _classPool;
+        private EcsPool<ParametersComponent> _parametersPool;
         private int _bottomLvlDifference = 2;
         private int _upperLvlDifference = 1;
         private float _spawnTime = 5f;
@@ -27,6 +30,8 @@ namespace Resources.Scripts.Systems
             _enemiesData = _gameData.EnemiesData.Enemies;
             _movePool = _world.GetPool<MoveComponent>();
             _followPool = _world.GetPool<FollowComponent>();
+            _classPool = _world.GetPool<ClassComponent>();
+            _parametersPool = _world.GetPool<ParametersComponent>();
             SelectEnemiesWithCurrentLvl();
         }
         
@@ -46,25 +51,20 @@ namespace Resources.Scripts.Systems
             var newEnemy = _world.NewEntity();
             ref var moveComponent = ref _movePool.Add(newEnemy);
             ref var followComponent = ref _followPool.Add(newEnemy);
+            ref var classComponent = ref _classPool.Add(newEnemy);
+            ref var parametersComponent = ref _parametersPool.Add(newEnemy);
+
+            CharacterCreator.CreateCharacter(
+                enemyData, 
+                ref moveComponent, 
+                ref classComponent, 
+                ref parametersComponent,
+                GetRandomPosition());
             
-            CreateEnemy(ref moveComponent, ref followComponent, enemyData);
+            ref var moveComponentPlayer = ref _movePool.Get(_gameData.PlayerData.Entity);
+            followComponent.TargetTransform = moveComponentPlayer.Transform;
         }
 
-        private void CreateEnemy(
-                                 ref MoveComponent moveComponentEnemy, 
-                                 ref FollowComponent followComponentEnemy, 
-                                 CharacterData enemyData
-                                 )
-        {
-            var spawnedEnemy = GameObject.Instantiate(enemyData.CharacterPrefab);
-            var rigidbody = spawnedEnemy.AddComponent<Rigidbody>();
-            moveComponentEnemy.MovementSpeed = enemyData.MovementSpeed;
-            moveComponentEnemy.Transform = spawnedEnemy.transform;
-            moveComponentEnemy.Rigidbody = rigidbody;
-            ref var moveComponentPlayer = ref _movePool.Get(_gameData.PlayerData.Entity);
-            followComponentEnemy.TargetTransform = moveComponentPlayer.Transform;
-        }
-        
         private void SelectEnemiesWithCurrentLvl()
         {
             if (_enemiesData.Length == 0) return;
@@ -79,6 +79,12 @@ namespace Resources.Scripts.Systems
             }
         }
 
+        private Transform GetRandomPosition()
+        {
+            var spawners = _gameData.CurrentWorldInfo.EnemySpawners;
+            return spawners[Random.Range(0, spawners.Length)];
+        }
+        
         private bool IsItTime()
         {
             if (_spawnTimer >= _spawnTime)
@@ -97,12 +103,12 @@ namespace Resources.Scripts.Systems
         
         private bool IsCorrectBottomLvl(CharacterData characterData)
         {
-            return _gameData.PlayerData.Level <= characterData.Level + _bottomLvlDifference;
+            return _gameData.PlayerData.CharacterData.Level <= characterData.Level + _bottomLvlDifference;
         }
         
         private bool IsCorrectUpperLvl(CharacterData characterData)
         {
-            return _gameData.PlayerData.Level >= characterData.Level - _upperLvlDifference;
+            return _gameData.PlayerData.CharacterData.Level >= characterData.Level - _upperLvlDifference;
         }
 
     }

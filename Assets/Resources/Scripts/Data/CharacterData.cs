@@ -14,5 +14,8 @@ namespace Resources.Scripts.Data
 
         [SerializeField] private float _movementSpeed;
         public float MovementSpeed => _movementSpeed;
+
+        [SerializeField] private ClassData _classData;
+        public ClassData ClassData => _classData;
     }
 }

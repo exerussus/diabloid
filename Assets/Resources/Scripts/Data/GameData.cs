@@ -1,5 +1,7 @@
 ﻿
 using Cinemachine;
+using Resources.Scripts.MonoBehaviours;
+using UnityEngine;
 
 namespace Resources.Scripts.Data
 {
@@ -8,7 +10,9 @@ namespace Resources.Scripts.Data
         public PlayerData PlayerData;
         public EnemiesData EnemiesData;
         public CinemachineVirtualCamera CinemachineVirtualCamera;
-        public int CurrentWorld { get;}
+        public int CurrentWorldIndex;
         public WorldData[] WorldsData;
+        public GameObject CurrentWorld;
+        public WorldInfo CurrentWorldInfo;
     }
 }

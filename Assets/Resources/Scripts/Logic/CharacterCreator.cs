@@ -11,6 +11,7 @@ namespace Resources.Scripts.Logic
                 ref MoveComponent moveComponent,
                 ref ClassComponent classComponent,
                 ref ParametersComponent parametersComponent,
+                ref CharacterResourceComponent characterResourceComponent,
                 Transform spawnPosition
                 )
         {
@@ -23,6 +24,7 @@ namespace Resources.Scripts.Logic
             moveComponent.MovementSpeed = characterData.MovementSpeed;
             SetClassAttributes(ref classComponent, characterData.ClassData);
             SetParameters(ref classComponent, ref parametersComponent);
+            SetCharacterResource(ref characterResourceComponent, ref parametersComponent);
             return spawnedCharacter;
         }
 
@@ -33,6 +35,15 @@ namespace Resources.Scripts.Logic
             classComponent.Constitution = classData.Constitution;
             classComponent.Wisdom = classData.Wisdom;
             classComponent.Agility = classData.Agility;
+        }
+
+        private static void SetCharacterResource(
+            ref CharacterResourceComponent characterResourceComponent, 
+            ref ParametersComponent parametersComponent)
+        {
+            characterResourceComponent.Health = parametersComponent.Health;
+            characterResourceComponent.Stamina = parametersComponent.Stamina;
+            characterResourceComponent.Mana = parametersComponent.Mana;
         }
         
         private static void SetParameters(ref ClassComponent classComponent, ref ParametersComponent parametersComponent)

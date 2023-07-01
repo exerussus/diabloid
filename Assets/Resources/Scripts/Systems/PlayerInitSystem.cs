@@ -16,6 +16,7 @@ namespace Resources.Scripts.Systems
         private EcsPool<ClassComponent> _classPool;
         private EcsPool<ParametersComponent> _parametersPool;
         private EcsPool<PlayerComponent> _playerPool;
+        private EcsPool<CharacterResourceComponent> _characterResourcePool;
         
         public void Init(IEcsSystems systems)
         {
@@ -33,17 +34,20 @@ namespace Resources.Scripts.Systems
             ref var moveComponent = ref _movePool.Add(playerEntity);
             ref var classComponent = ref _classPool.Add(playerEntity);
             ref var parametersComponent = ref _parametersPool.Add(playerEntity);
+            ref var characterResourceComponent = ref _characterResourcePool.Add(playerEntity);
 
             CharacterCreator.CreateCharacter(
                 _gameData.PlayerData.CharacterData,
                 ref moveComponent,
                 ref classComponent,
                 ref parametersComponent,
+                ref characterResourceComponent,
                 _gameData.CurrentWorldInfo.PlayerSpawner);
             
             SetCamera(ref moveComponent);
         }
 
+        
         private void SetAllPools()
         {
             _movePool = _world.GetPool<MoveComponent>();
@@ -51,6 +55,7 @@ namespace Resources.Scripts.Systems
             _classPool = _world.GetPool<ClassComponent>();
             _parametersPool = _world.GetPool<ParametersComponent>();
             _playerPool = _world.GetPool<PlayerComponent>();
+            _characterResourcePool = _world.GetPool<CharacterResourceComponent>();
         }
         
         private void SetCamera(ref MoveComponent moveComponent)

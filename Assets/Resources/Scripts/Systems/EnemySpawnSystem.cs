@@ -19,6 +19,7 @@ namespace Resources.Scripts.Systems
         private EcsPool<MovementInputComponent> _movementInputPool;
         private EcsPool<ClassComponent> _classPool;
         private EcsPool<ParametersComponent> _parametersPool;
+        private EcsPool<CharacterResourceComponent> _characterResourcePool;
         private int _bottomLvlDifference = 2;
         private int _upperLvlDifference = 1;
         private float _spawnTime = 5f;
@@ -34,6 +35,7 @@ namespace Resources.Scripts.Systems
             _movementInputPool = _world.GetPool<MovementInputComponent>();
             _classPool = _world.GetPool<ClassComponent>();
             _parametersPool = _world.GetPool<ParametersComponent>();
+            _characterResourcePool = _world.GetPool<CharacterResourceComponent>();
             SelectEnemiesWithCurrentLvl();
         }
         
@@ -57,12 +59,14 @@ namespace Resources.Scripts.Systems
             ref var moveComponent = ref _movePool.Add(newEnemy);
             ref var classComponent = ref _classPool.Add(newEnemy);
             ref var parametersComponent = ref _parametersPool.Add(newEnemy);
-
+            ref var characterResourceComponent = ref _characterResourcePool.Add(newEnemy);
+            
             CharacterCreator.CreateCharacter(
                 enemyData, 
                 ref moveComponent, 
                 ref classComponent, 
                 ref parametersComponent,
+                ref characterResourceComponent,
                 GetRandomPosition());
         }
 

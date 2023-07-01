@@ -12,6 +12,11 @@ namespace Resources.Scripts.Systems
         private EcsWorld _world;
         private GameData _gameData;
         private PlayerData _playerData;
+        private EcsPool<MoveComponent> _movePool;
+        private EcsPool<PlayerInputComponent> _playerInputPool;
+        private EcsPool<ClassComponent> _classPool;
+        private EcsPool<ParametersComponent> _parametersPool;
+        
         public void Init(IEcsSystems systems)
         {
             _world = systems.GetWorld();
@@ -40,6 +45,20 @@ namespace Resources.Scripts.Systems
             moveComponent.Transform = spawnedPlayerPrefab.transform;
             _gameData.CinemachineVirtualCamera.LookAt = moveComponent.Transform;
             _gameData.CinemachineVirtualCamera.Follow = moveComponent.Transform;
+        }
+
+        private void SetClassAttributes(ref ClassComponent classComponent, ClassData classData)
+        {
+            classComponent.Name = classData.Name;
+            classComponent.Strength = classData.Strength;
+            classComponent.Agility = classData.Agility;
+            classComponent.Constitution = classComponent.Constitution;
+        }
+        
+        private ClassData GetPlayerClassData()
+        {
+            // Возврат данных о классе игрока
+            return ScriptableObject.CreateInstance<ClassData>();
         }
     }
 }

@@ -12,9 +12,10 @@ namespace Resources.Scripts.Systems
         private GameData _gameData;
         private PlayerData _playerData;
         private EcsPool<MoveComponent> _movePool;
-        private EcsPool<PlayerInputComponent> _playerInputPool;
+        private EcsPool<MovementInputComponent> _playerInputPool;
         private EcsPool<ClassComponent> _classPool;
         private EcsPool<ParametersComponent> _parametersPool;
+        private EcsPool<PlayerComponent> _playerPool;
         
         public void Init(IEcsSystems systems)
         {
@@ -24,13 +25,11 @@ namespace Resources.Scripts.Systems
             
             var playerEntity = _world.NewEntity();
             _playerData.Entity = playerEntity;
-            
-            _movePool = _world.GetPool<MoveComponent>();
-            _playerInputPool = _world.GetPool<PlayerInputComponent>();
-            _classPool = _world.GetPool<ClassComponent>();
-            _parametersPool = _world.GetPool<ParametersComponent>();
+
+            SetAllPools();
             
             _playerInputPool.Add(playerEntity);
+            _playerPool.Add(playerEntity);
             ref var moveComponent = ref _movePool.Add(playerEntity);
             ref var classComponent = ref _classPool.Add(playerEntity);
             ref var parametersComponent = ref _parametersPool.Add(playerEntity);
@@ -45,6 +44,15 @@ namespace Resources.Scripts.Systems
             SetCamera(ref moveComponent);
         }
 
+        private void SetAllPools()
+        {
+            _movePool = _world.GetPool<MoveComponent>();
+            _playerInputPool = _world.GetPool<MovementInputComponent>();
+            _classPool = _world.GetPool<ClassComponent>();
+            _parametersPool = _world.GetPool<ParametersComponent>();
+            _playerPool = _world.GetPool<PlayerComponent>();
+        }
+        
         private void SetCamera(ref MoveComponent moveComponent)
         {
             _gameData.CinemachineVirtualCamera.LookAt = moveComponent.Transform;

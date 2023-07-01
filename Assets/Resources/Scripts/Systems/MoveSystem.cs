@@ -8,18 +8,19 @@ namespace Resources.Scripts.Systems
 {
     public class MoveSystem : EcsSystemForeach
     {
+        private int _multiply = 3;
         private EcsPool<MoveComponent> _movePool;
-        private EcsPool<PlayerInputComponent> _playerInputPool;
+        private EcsPool<MovementInputComponent> _movementInputPool;
 
         protected override EcsFilter GetEcsFilter(IEcsSystems systems)
         {
-            return _world.Filter<MoveComponent>().Inc<PlayerInputComponent>().End();
+            return _world.Filter<MoveComponent>().Inc<MovementInputComponent>().End();
         }
 
         protected override void Initialization(IEcsSystems systems)
         {
             _movePool = _world.GetPool<MoveComponent>();
-            _playerInputPool = _world.GetPool<PlayerInputComponent>();
+            _movementInputPool = _world.GetPool<MovementInputComponent>();
         }
 
         protected override void BeforeForeach(IEcsSystems systems) {}
@@ -27,10 +28,9 @@ namespace Resources.Scripts.Systems
         protected override void InForeach(IEcsSystems systems, int entity)
         {
             ref var moveComponent = ref _movePool.Get(entity);
-            ref var playerInputComponent = ref _playerInputPool.Get(entity);
-            var Direction = playerInputComponent.Direction;
-            moveComponent.Transform.position += (Vector3)playerInputComponent.Direction 
-                                                * (Time.deltaTime * moveComponent.MovementSpeed);
+            ref var movementInputComponent = ref _movementInputPool.Get(entity);
+            var force = movementInputComponent.Direction * (moveComponent.MovementSpeed * _multiply);
+            moveComponent.Rigidbody.velocity = force;
         }
     }
 }

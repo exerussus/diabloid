@@ -14,8 +14,9 @@ namespace Resources.Scripts.Systems
         private GameData _gameData;
         private CharacterData[] _enemiesData;
         private List<CharacterData> _selectedEnemies;
+        private EcsPool<EnemyComponent> _enemyPool;
         private EcsPool<MoveComponent> _movePool;
-        private EcsPool<FollowComponent> _followPool;
+        private EcsPool<MovementInputComponent> _movementInputPool;
         private EcsPool<ClassComponent> _classPool;
         private EcsPool<ParametersComponent> _parametersPool;
         private int _bottomLvlDifference = 2;
@@ -28,8 +29,9 @@ namespace Resources.Scripts.Systems
             _world = systems.GetWorld();
             _gameData = systems.GetShared<GameData>();
             _enemiesData = _gameData.EnemiesData.Enemies;
+            _enemyPool = _world.GetPool<EnemyComponent>();
             _movePool = _world.GetPool<MoveComponent>();
-            _followPool = _world.GetPool<FollowComponent>();
+            _movementInputPool = _world.GetPool<MovementInputComponent>();
             _classPool = _world.GetPool<ClassComponent>();
             _parametersPool = _world.GetPool<ParametersComponent>();
             SelectEnemiesWithCurrentLvl();
@@ -49,8 +51,10 @@ namespace Resources.Scripts.Systems
         {
             if (_enemiesData.Length == 0) return;
             var newEnemy = _world.NewEntity();
+            
+            _enemyPool.Add(newEnemy);
+            _movementInputPool.Add(newEnemy);
             ref var moveComponent = ref _movePool.Add(newEnemy);
-            ref var followComponent = ref _followPool.Add(newEnemy);
             ref var classComponent = ref _classPool.Add(newEnemy);
             ref var parametersComponent = ref _parametersPool.Add(newEnemy);
 
@@ -60,9 +64,6 @@ namespace Resources.Scripts.Systems
                 ref classComponent, 
                 ref parametersComponent,
                 GetRandomPosition());
-            
-            ref var moveComponentPlayer = ref _movePool.Get(_gameData.PlayerData.Entity);
-            followComponent.TargetTransform = moveComponentPlayer.Transform;
         }
 
         private void SelectEnemiesWithCurrentLvl()

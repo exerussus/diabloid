@@ -15,3 +15,4 @@ MonoBehaviour:
   "_\u0441haracterPrefab": {fileID: 1751068865394308588, guid: 8245023b6a9d3604dbca9a5f12657f73, type: 3}
   _level: 1
   _movementSpeed: 2
+  _classData: {fileID: 11400000, guid: 6e0dd03b2ce56394783f888d1e9aab14, type: 2}

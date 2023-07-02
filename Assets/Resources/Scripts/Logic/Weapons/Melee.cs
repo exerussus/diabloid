@@ -5,7 +5,7 @@ namespace Resources.Scripts.Logic.Weapons
 {
     public class Melee : IWeapon
     {
-        public void Attack()
+        public void Attack(Transform entityTransform)
         {
             Debug.Log("Melee Attack!");
         }

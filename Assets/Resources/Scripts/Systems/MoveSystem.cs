@@ -1,7 +1,7 @@
 ﻿
 using Leopotam.EcsLite;
+using Resources.Scripts.Abstraction;
 using Resources.Scripts.Components;
-using Resources.Scripts.Tools;
 
 namespace Resources.Scripts.Systems
 {
@@ -20,8 +20,6 @@ namespace Resources.Scripts.Systems
             _movePool = _world.GetPool<MoveComponent>();
             _movementInputPool = _world.GetPool<MovementInputComponent>();
         }
-
-        protected override void BeforeForeach(IEcsSystems systems) {}
 
         protected override void InForeach(IEcsSystems systems, int entity)
         {

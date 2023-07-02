@@ -1,12 +1,12 @@
 ﻿
 using Leopotam.EcsLite;
+using Resources.Scripts.Abstraction;
 using Resources.Scripts.Components;
-using Resources.Scripts.Tools;
 using UnityEngine;
 
 namespace Resources.Scripts.Systems
 {
-    public class PlayerInputSystem : EcsSystemForeach
+    public class PlayerMovementInputSystem : EcsSystemForeachExtended
     {
         private EcsPool<MovementInputComponent> _movementInputPool;
         private float _horizontalAxis;

@@ -1,7 +1,7 @@
 ﻿using Leopotam.EcsLite;
 using Resources.Scripts.Data;
 
-namespace Resources.Scripts.Tools
+namespace Resources.Scripts.Abstraction
 {
     public abstract class EcsSystemInit : IEcsInitSystem
     {

@@ -54,8 +54,8 @@ namespace Resources.Scripts.MonoBehaviours
             _updateSystems = new EcsSystems(_world, _gameData);
             _updateSystems
                     
-                .Add(new PlayerInputSystem())
-                .Add(new EnemyInputSystem());
+                .Add(new PlayerMovementInputSystem())
+                .Add(new EnemyMovementInputSystem());
             
             _updateSystems.Init();
         }

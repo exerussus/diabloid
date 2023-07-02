@@ -1,13 +1,13 @@
 ﻿
 using Leopotam.EcsLite;
+using Resources.Scripts.Abstraction;
 using Resources.Scripts.Components;
 using Resources.Scripts.Data;
-using Resources.Scripts.Tools;
 using UnityEngine;
 
 namespace Resources.Scripts.Systems
 {
-    public class EnemyInputSystem : EcsSystemForeach
+    public class EnemyMovementInputSystem : EcsSystemForeach
     {
         private GameData _gameData;
         private Transform _playerTransform;
@@ -27,8 +27,6 @@ namespace Resources.Scripts.Systems
             _gameData = systems.GetShared<GameData>();
             _playerTransform = _movePool.Get(_gameData.PlayerData.Entity).Transform;
         }
-
-        protected override void BeforeForeach(IEcsSystems systems) {}
 
         protected override void InForeach(IEcsSystems systems, int entity)
         {

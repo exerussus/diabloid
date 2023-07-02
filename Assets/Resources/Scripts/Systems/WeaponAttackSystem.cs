@@ -32,7 +32,11 @@ namespace Resources.Scripts.Systems
                 weaponComponent.Weapon.Attack();
                 weaponInputComponent.IsAttack = false;
             }
-            else if (!weaponComponent.IsReady) weaponComponent.CoolDownTimer += Time.fixedDeltaTime;
+            else if (!weaponComponent.IsReady)
+            {
+                weaponInputComponent.IsAttack = false;
+                weaponComponent.CoolDownTimer += Time.fixedDeltaTime;
+            }
         }
     }
 }

@@ -55,7 +55,9 @@ namespace Resources.Scripts.MonoBehaviours
             _updateSystems
                     
                 .Add(new PlayerMovementInputSystem())
-                .Add(new EnemyMovementInputSystem());
+                .Add(new EnemyMovementInputSystem())
+                .Add(new PlayerWeaponInputSystem())
+                .Add(new EnemyWeaponInputSystem());
             
             _updateSystems.Init();
         }
@@ -66,7 +68,8 @@ namespace Resources.Scripts.MonoBehaviours
             _fixedUpdateSystems
                     
                 .Add(new MoveSystem())
-                .Add(new EnemySpawnSystem());
+                .Add(new EnemySpawnSystem())
+                .Add(new WeaponAttackSystem());
             
             _fixedUpdateSystems.Init();
         }

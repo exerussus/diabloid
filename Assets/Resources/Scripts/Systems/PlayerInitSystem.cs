@@ -3,6 +3,7 @@ using Leopotam.EcsLite;
 using Resources.Scripts.Components;
 using Resources.Scripts.Data;
 using Resources.Scripts.Logic;
+using Resources.Scripts.Logic.Weapons;
 
 namespace Resources.Scripts.Systems
 {
@@ -17,6 +18,8 @@ namespace Resources.Scripts.Systems
         private EcsPool<ParametersComponent> _parametersPool;
         private EcsPool<PlayerComponent> _playerPool;
         private EcsPool<CharacterResourceComponent> _characterResourcePool;
+        private EcsPool<WeaponComponent> _weaponPool;
+        private EcsPool<WeaponInputComponent> _weaponInputPool;
         
         public void Init(IEcsSystems systems)
         {
@@ -31,11 +34,17 @@ namespace Resources.Scripts.Systems
             
             _playerInputPool.Add(playerEntity);
             _playerPool.Add(playerEntity);
+            _weaponInputPool.Add(playerEntity);
             ref var moveComponent = ref _movePool.Add(playerEntity);
             ref var classComponent = ref _classPool.Add(playerEntity);
             ref var parametersComponent = ref _parametersPool.Add(playerEntity);
             ref var characterResourceComponent = ref _characterResourcePool.Add(playerEntity);
+            ref var weaponComponent = ref _weaponPool.Add(playerEntity);
 
+            weaponComponent.Weapon = new Melee();
+            weaponComponent.Range = 2f;
+            weaponComponent.CoolDownValue = 2f;
+            
             CharacterCreator.CreateCharacter(
                 _gameData.PlayerData.CharacterData,
                 ref moveComponent,
@@ -56,6 +65,8 @@ namespace Resources.Scripts.Systems
             _parametersPool = _world.GetPool<ParametersComponent>();
             _playerPool = _world.GetPool<PlayerComponent>();
             _characterResourcePool = _world.GetPool<CharacterResourceComponent>();
+            _weaponPool = _world.GetPool<WeaponComponent>();
+            _weaponInputPool = _world.GetPool<WeaponInputComponent>();
         }
         
         private void SetCamera(ref MoveComponent moveComponent)

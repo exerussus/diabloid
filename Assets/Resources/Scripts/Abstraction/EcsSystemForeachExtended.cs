@@ -16,7 +16,7 @@ namespace Resources.Scripts.Abstraction
         
         public void Run(IEcsSystems systems)
         {
-
+            BeforeForeach(systems);
             foreach (var entity in _filter)
             {
                 InForeach(systems, entity);

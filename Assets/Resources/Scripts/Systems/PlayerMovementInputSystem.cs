@@ -12,23 +12,23 @@ namespace Resources.Scripts.Systems
         private float _horizontalAxis;
         private float _verticalAxis;
 
-        protected override EcsFilter GetEcsFilter(IEcsSystems systems)
+        protected override EcsFilter GetEcsFilter(IEcsSystems systems, EcsWorld world)
         {
-            return _world.Filter<MovementInputComponent>().Inc<PlayerComponent>().End();
+            return world.Filter<MovementInputComponent>().Inc<PlayerComponent>().End();
         }
 
-        protected override void Initialization(IEcsSystems systems)
+        protected override void Initialization(IEcsSystems systems, EcsWorld world, EcsFilter filter)
         {
-            _movementInputPool = _world.GetPool<MovementInputComponent>();
+            _movementInputPool = world.GetPool<MovementInputComponent>();
         }
 
-        protected override void BeforeForeach(IEcsSystems systems)
+        protected override void BeforeForeach(IEcsSystems systems, EcsWorld world, EcsFilter filter)
         {
             _horizontalAxis = Input.GetAxis("Horizontal");
             _verticalAxis = Input.GetAxis("Vertical");
         }
 
-        protected override void InForeach(IEcsSystems systems, int entity)
+        protected override void InForeach(IEcsSystems systems, int entity, EcsWorld world, EcsFilter filter)
         {
             ref var movementInputComponent = ref _movementInputPool.Get(entity);
             movementInputComponent.Direction = new Vector3(_horizontalAxis, 0, _verticalAxis).normalized;

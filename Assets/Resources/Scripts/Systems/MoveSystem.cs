@@ -10,18 +10,18 @@ namespace Resources.Scripts.Systems
         private EcsPool<MoveComponent> _movePool;
         private EcsPool<MovementInputComponent> _movementInputPool;
 
-        protected override EcsFilter GetEcsFilter(IEcsSystems systems)
+        protected override EcsFilter GetEcsFilter(IEcsSystems systems, EcsWorld world)
         {
-            return _world.Filter<MoveComponent>().Inc<MovementInputComponent>().End();
+            return world.Filter<MoveComponent>().Inc<MovementInputComponent>().End();
         }
 
-        protected override void Initialization(IEcsSystems systems)
+        protected override void Initialization(IEcsSystems systems, EcsWorld world, EcsFilter filter)
         {
-            _movePool = _world.GetPool<MoveComponent>();
-            _movementInputPool = _world.GetPool<MovementInputComponent>();
+            _movePool = world.GetPool<MoveComponent>();
+            _movementInputPool = world.GetPool<MovementInputComponent>();
         }
 
-        protected override void InForeach(IEcsSystems systems, int entity)
+        protected override void InForeach(IEcsSystems systems, int entity, EcsWorld world, EcsFilter filter)
         {
             ref var moveComponent = ref _movePool.Get(entity);
             ref var movementInputComponent = ref _movementInputPool.Get(entity);

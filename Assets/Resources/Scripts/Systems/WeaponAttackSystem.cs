@@ -11,19 +11,19 @@ namespace Resources.Scripts.Systems
         private EcsPool<WeaponComponent> _weaponPool;
         private EcsPool<WeaponInputComponent> _weaponInputPool;
 
-        protected override EcsFilter GetEcsFilter(IEcsSystems systems)
+        protected override EcsFilter GetEcsFilter(IEcsSystems systems, EcsWorld world)
         {
-            return _world.Filter<WeaponComponent>().Inc<WeaponInputComponent>().Inc<MoveComponent>().End();
+            return world.Filter<WeaponComponent>().Inc<WeaponInputComponent>().Inc<MoveComponent>().End();
         }
 
-        protected override void Initialization(IEcsSystems systems)
+        protected override void Initialization(IEcsSystems systems, EcsWorld world, EcsFilter filter)
         {
-            _movePool = _world.GetPool<MoveComponent>();
-            _weaponPool = _world.GetPool<WeaponComponent>();
-            _weaponInputPool = _world.GetPool<WeaponInputComponent>();
+            _movePool = world.GetPool<MoveComponent>();
+            _weaponPool = world.GetPool<WeaponComponent>();
+            _weaponInputPool = world.GetPool<WeaponInputComponent>();
         }
 
-        protected override void InForeach(IEcsSystems systems, int entity)
+        protected override void InForeach(IEcsSystems systems, int entity, EcsWorld world, EcsFilter filter)
         {
             ref var weaponComponent = ref _weaponPool.Get(entity);
             ref var weaponInputComponent = ref _weaponInputPool.Get(entity);

@@ -10,22 +10,22 @@ namespace Resources.Scripts.Systems
         private EcsPool<WeaponInputComponent> _weaponInputPool;
         private bool _isPressed;
 
-        protected override EcsFilter GetEcsFilter(IEcsSystems systems)
+        protected override EcsFilter GetEcsFilter(IEcsSystems systems, EcsWorld world)
         {
-            return _world.Filter<WeaponInputComponent>().Inc<PlayerComponent>().End();
+            return world.Filter<WeaponInputComponent>().Inc<PlayerComponent>().End();
         }
 
-        protected override void Initialization(IEcsSystems systems)
+        protected override void Initialization(IEcsSystems systems, EcsWorld world, EcsFilter filter)
         {
-            _weaponInputPool = _world.GetPool<WeaponInputComponent>();
+            _weaponInputPool = world.GetPool<WeaponInputComponent>();
         }
 
-        protected override void BeforeForeach(IEcsSystems systems)
+        protected override void BeforeForeach(IEcsSystems systems, EcsWorld world, EcsFilter filter)
         {
             _isPressed = Input.GetMouseButtonDown(0);
         }
 
-        protected override void InForeach(IEcsSystems systems, int entity)
+        protected override void InForeach(IEcsSystems systems, int entity, EcsWorld world, EcsFilter filter)
         {
             ref var weaponInputComponent = ref _weaponInputPool.Get(entity);
             if (_isPressed) weaponInputComponent.IsAttack = true;

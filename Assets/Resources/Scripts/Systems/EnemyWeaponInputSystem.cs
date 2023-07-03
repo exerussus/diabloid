@@ -13,19 +13,19 @@ namespace Resources.Scripts.Systems
         private EcsPool<MoveComponent> _movePool;
         private bool _isPressed;
 
-        protected override EcsFilter GetEcsFilter(IEcsSystems systems)
+        protected override EcsFilter GetEcsFilter(IEcsSystems systems, EcsWorld world)
         {
-            return _world.Filter<WeaponInputComponent>().Inc<EnemyComponent>().Inc<WeaponComponent>().Inc<MoveComponent>().End();
+            return world.Filter<WeaponInputComponent>().Inc<EnemyComponent>().Inc<WeaponComponent>().Inc<MoveComponent>().End();
         }
 
-        protected override void Initialization(IEcsSystems systems)
+        protected override void Initialization(IEcsSystems systems, EcsWorld world, EcsFilter filter)
         {
-            _weaponInputPool = _world.GetPool<WeaponInputComponent>();
-            _weaponPool = _world.GetPool<WeaponComponent>();
-            _movePool = _world.GetPool<MoveComponent>();
+            _weaponInputPool = world.GetPool<WeaponInputComponent>();
+            _weaponPool = world.GetPool<WeaponComponent>();
+            _movePool = world.GetPool<MoveComponent>();
         }
 
-        protected override void InForeach(IEcsSystems systems, int entity)
+        protected override void InForeach(IEcsSystems systems, int entity, EcsWorld world, EcsFilter filter)
         {
             var playerEntity = systems.GetShared<GameData>().PlayerData.Entity;
             ref var weaponInputComponent = ref _weaponInputPool.Get(entity);

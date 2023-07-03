@@ -69,7 +69,8 @@ namespace Resources.Scripts.MonoBehaviours
                     
                 .Add(new MoveSystem())
                 .Add(new EnemySpawnSystem())
-                .Add(new WeaponAttackSystem());
+                .Add(new WeaponAttackSystem())
+                .Add(new ResourcesRegenerationSystem());
             
             _fixedUpdateSystems.Init();
         }

@@ -15,20 +15,20 @@ namespace Resources.Scripts.Systems
         private EcsPool<MoveComponent> _movePool;
         private float _minDistance = 2f;
         
-        protected override EcsFilter GetEcsFilter(IEcsSystems systems)
+        protected override EcsFilter GetEcsFilter(IEcsSystems systems, EcsWorld world)
         {
-            return _world.Filter<MovementInputComponent>().Inc<EnemyComponent>().End();
+            return world.Filter<MovementInputComponent>().Inc<EnemyComponent>().End();
         }
 
-        protected override void Initialization(IEcsSystems systems)
+        protected override void Initialization(IEcsSystems systems, EcsWorld world, EcsFilter filter)
         {
-            _movePool = _world.GetPool<MoveComponent>();
-            _movementInputPool = _world.GetPool<MovementInputComponent>();
+            _movePool = world.GetPool<MoveComponent>();
+            _movementInputPool = world.GetPool<MovementInputComponent>();
             _gameData = systems.GetShared<GameData>();
             _playerTransform = _movePool.Get(_gameData.PlayerData.Entity).Transform;
         }
 
-        protected override void InForeach(IEcsSystems systems, int entity)
+        protected override void InForeach(IEcsSystems systems, int entity, EcsWorld world, EcsFilter filter)
         {
             ref var moveComponent = ref _movePool.Get(entity);
             ref var movementInputPool = ref _movementInputPool.Get(entity);

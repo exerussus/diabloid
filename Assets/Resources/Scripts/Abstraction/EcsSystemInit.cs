@@ -12,12 +12,12 @@ namespace Resources.Scripts.Abstraction
         public void Init(IEcsSystems systems)
         {
             _world = systems.GetWorld();
-            _filter = GetFilter(_world);
+            _filter = GetFilter(systems, _world);
             _gameData = systems.GetShared<GameData>();
             Initialization(systems, _world, _filter, _gameData);
         }
 
-        protected abstract EcsFilter GetFilter(EcsWorld world);
+        protected abstract EcsFilter GetFilter(IEcsSystems systems, EcsWorld world);
         protected abstract void Initialization(IEcsSystems systems, EcsWorld world, EcsFilter filter, GameData gameData);
     }
 }

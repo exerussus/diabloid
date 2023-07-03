@@ -20,6 +20,7 @@ namespace Resources.Scripts.Systems
         private EcsPool<ClassComponent> _classPool;
         private EcsPool<ParametersComponent> _parametersPool;
         private EcsPool<CharacterResourceComponent> _characterResourcePool;
+        private int _maxEnemyValue = 3;
         private int _bottomLvlDifference = 2;
         private int _upperLvlDifference = 1;
         private float _spawnTime = 5f;
@@ -41,7 +42,7 @@ namespace Resources.Scripts.Systems
         
         public void Run(IEcsSystems systems)
         {
-            if (IsItTime()) Spawn(GetRandomEnemy());
+            if (IsItTime() && _enemyPool.GetRawDenseItemsCount() <= _maxEnemyValue) Spawn(GetRandomEnemy());
         }
         
         private CharacterData GetRandomEnemy()
